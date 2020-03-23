@@ -23,8 +23,8 @@ namespace PlaneRadar
         string json;
         Uri url = new Uri("https://opensky-network.org/api/states/all?lamin=51.285594&lomin=-0.572355&lamax=51.699371&lomax=0.260495");
         PointF loc = new PointF(0f,0f);
-        
-        
+        string time = "";
+
         public Form1()
         {
 
@@ -35,10 +35,10 @@ namespace PlaneRadar
             json = ReadJson();
             NearestPlane.Text = "";
             planes = new List<Aircraft>();
-            NearestPlane.Text = json;
-            string time = "";
-            (planes, time) = Aircraft.PlanesUpdate(json);
+            
 
+            NearestPlane.Text = Nearest(planes);            
+            (planes, time) = Aircraft.PlanesUpdate(json);
             LastUpdate.Text = TimeReader(time).ToLocalTime().ToString();
         }
 
@@ -51,7 +51,11 @@ namespace PlaneRadar
                 wc.DownloadFile(url, "LatestData.json");
             }
             catch
-            { }
+            {
+                
+            }
+
+            wc.Dispose();
 
             return File.ReadAllText("LatestData.json").Substring(8, 10);
         }
@@ -59,6 +63,21 @@ namespace PlaneRadar
         private string ReadJson(string filename = "LatestData.json")
         {
             return File.ReadAllText(filename);
+        }
+
+        private string Nearest(List<Aircraft> airplanes)
+        {
+            float nearestdis = 0f;
+            string nearcraft = "";
+            foreach (Aircraft a in airplanes)
+            {
+                double disa = Pythag(a.coords, loc);
+                nearestdis = (float)(nearestdis < disa ? disa : nearestdis);
+                nearcraft = nearestdis < disa ? a._callsign : nearcraft;
+            }
+
+
+            return nearcraft;
         }
 
         private DateTime TimeReader(string time)
@@ -70,7 +89,9 @@ namespace PlaneRadar
         private void ButtonUpdate_Click(object sender, EventArgs e)
         {
             string time = DownloadData();
+            (planes, time) = Aircraft.PlanesUpdate(ReadJson());            
             LastUpdate.Text = TimeReader(time).ToLocalTime().ToString();
+            NearestPlane.Text = Nearest(planes);
         }
 
         private void Label3_Click(object sender, EventArgs e)
@@ -87,7 +108,6 @@ namespace PlaneRadar
                     return loc;
                 else
                     return new PointF((float)Watcher.Position.Location.Longitude,(float)Watcher.Position.Location.Latitude);
-            Watcher.Stop();
         }
 
         private double Pythag(PointF p1, PointF p2)

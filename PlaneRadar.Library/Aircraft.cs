@@ -6,14 +6,14 @@ namespace PlaneRadar
 {
     public class Aircraft
     {
-        float _lat;
-        float _lon;
-        PointF coords;
-        string _origin;
-        string _callsign;
-        bool _on_ground;
-        string _squawk;
-        float _baro_alt;
+        readonly public float _lat;
+        readonly public float _lon;
+        readonly public PointF coords;
+        readonly public string _origin;
+        readonly public string _callsign;
+        readonly public bool _on_ground;
+        readonly public string _squawk;
+        readonly public float _baro_alt;
 
         public Aircraft(float lat, float lon, string origin, string cs, float alt, bool grounded = true, string squawk = "0000")
         {
