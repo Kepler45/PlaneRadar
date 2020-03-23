@@ -31,6 +31,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.NearestPlane = new System.Windows.Forms.Label();
             this.buttonUpdate = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.LastUpdate = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -46,9 +48,10 @@
             // NearestPlane
             // 
             this.NearestPlane.AutoSize = true;
-            this.NearestPlane.Location = new System.Drawing.Point(15, 51);
+            this.NearestPlane.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NearestPlane.Location = new System.Drawing.Point(20, 50);
             this.NearestPlane.Name = "NearestPlane";
-            this.NearestPlane.Size = new System.Drawing.Size(31, 13);
+            this.NearestPlane.Size = new System.Drawing.Size(45, 20);
             this.NearestPlane.TabIndex = 1;
             this.NearestPlane.Text = "____";
             // 
@@ -62,11 +65,34 @@
             this.buttonUpdate.UseVisualStyleBackColor = true;
             this.buttonUpdate.Click += new System.EventHandler(this.ButtonUpdate_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(19, 164);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(141, 25);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Last update at:";
+            // 
+            // LastUpdate
+            // 
+            this.LastUpdate.AutoSize = true;
+            this.LastUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LastUpdate.Location = new System.Drawing.Point(21, 202);
+            this.LastUpdate.Name = "LastUpdate";
+            this.LastUpdate.Size = new System.Drawing.Size(54, 20);
+            this.LastUpdate.TabIndex = 4;
+            this.LastUpdate.Text = "_____";
+            this.LastUpdate.Click += new System.EventHandler(this.Label3_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(252, 247);
+            this.Controls.Add(this.LastUpdate);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.NearestPlane);
             this.Controls.Add(this.label1);
@@ -82,6 +108,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label NearestPlane;
         private System.Windows.Forms.Button buttonUpdate;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label LastUpdate;
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace PlaneRadar
 {
@@ -23,10 +24,28 @@ namespace PlaneRadar
             _squawk = squawk;
             _baro_alt = alt * 3.2808f;
         }
-        public static List<Aircraft> PlanesInit(List<Aircraft> planes, string json)
+        public static (List<Aircraft>,string) PlanesUpdate(string json)
         {
+                
+            //Formatting
+            
+            string time = json.Substring(8, 10);
+            json = json.Remove(0, 29);
+            json = json.Remove(json.Length - 2, 2);
 
-            return new List<Aircraft>();
+            List<string> airplanesrough = new List<string>(json.Split(','));
+            List<List<string>> airplanes = new List<List<string>>();
+            for (int i = 0; i < airplanesrough.Count; i++)
+            {
+
+                if (i % 17 == 0)
+                    airplanes.Add(new List<string>());
+                else
+                    airplanes[airplanes.Count - 1].Add(airplanesrough[i]);
+            }
+                        
+
+            return (new List<Aircraft>(), time);
         }
 
         public static void Test()
